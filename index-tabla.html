@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiApp Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .notification-dropdown {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+
+        <h1 class="text-2xl font-bold mb-8 text-gray-800">Ejemplos de Inputs para MiApp</h1>
+
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="font-medium">Productos Disponibles</h3>
+                <div class="flex-row items-center md:flex-col ">
+                    
+                    <div class="relative mr-4">
+                        <input type="text" placeholder="Buscar producto..."
+                            class="pl-8 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition">
+                        <i class="fas fa-plus mr-2"></i>Nuevo Producto
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtros móviles (visible en móvil) -->
+            <div class="p-4 border-b block lg:hidden">
+                <select class="w-full p-2 border rounded-lg text-sm">
+                    <option value="">Todos los productos</option>
+                    <option value="active">Activos</option>
+                    <option value="inactive">Inactivos</option>
+                    <option value="low">Bajo inventario</option>
+                </select>
+            </div>
+
+            <!-- Tabla con scroll horizontal en móvil -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <div class="flex items-center">
+                                    Producto
+                                    <i class="fas fa-sort ml-1 text-gray-400"></i>
+                                </div>
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <div class="flex items-center">
+                                    Categoría
+                                    <i class="fas fa-sort ml-1 text-gray-400"></i>
+                                </div>
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <div class="flex items-center">
+                                    Inventario
+                                    <i class="fas fa-sort ml-1 text-gray-400"></i>
+                                </div>
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <div class="flex items-center">
+                                    Precio
+                                    <i class="fas fa-sort ml-1 text-gray-400"></i>
+                                </div>
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Estado
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Producto 1 -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-10 w-10 flex-shrink-0 mr-3">
+                                        <img class="h-10 w-10 rounded-md object-cover" src="/api/placeholder/64/64"
+                                            alt="Producto 1">
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Smartphone Galaxy S25</div>
+                                        <div class="text-sm text-gray-500">SKU: SM-G25-128GB</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Electrónica</div>
+                                <div class="text-sm text-gray-500">Teléfonos</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">125 unidades</div>
+                                <div class="h-1.5 bg-gray-200 rounded-full mt-1">
+                                    <div class="h-1.5 bg-green-500 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">$899.99</div>
+                                <div class="text-xs text-green-500">En oferta</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Activo
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                                <button class="text-blue-500 hover:text-blue-700 mr-3">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-gray-500 hover:text-gray-700 mr-3">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Producto 2 -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-10 w-10 flex-shrink-0 mr-3">
+                                        <img class="h-10 w-10 rounded-md object-cover" src="/api/placeholder/64/64"
+                                            alt="Producto 2">
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Laptop ProBook X4</div>
+                                        <div class="text-sm text-gray-500">SKU: LP-PBX4-16GB</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Electrónica</div>
+                                <div class="text-sm text-gray-500">Computadoras</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">15 unidades</div>
+                                <div class="h-1.5 bg-gray-200 rounded-full mt-1">
+                                    <div class="h-1.5 bg-red-500 rounded-full" style="width: 15%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">$1,499.99</div>
+                                <div class="text-xs text-gray-500">Precio normal</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    Bajo inventario
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                                <button class="text-blue-500 hover:text-blue-700 mr-3">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-gray-500 hover:text-gray-700 mr-3">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Producto 3 -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-10 w-10 flex-shrink-0 mr-3">
+                                        <img class="h-10 w-10 rounded-md object-cover" src="/api/placeholder/64/64"
+                                            alt="Producto 3">
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Audífonos SoundMax</div>
+                                        <div class="text-sm text-gray-500">SKU: AU-SM50-BLK</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Audio</div>
+                                <div class="text-sm text-gray-500">Audífonos</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">250 unidades</div>
+                                <div class="h-1.5 bg-gray-200 rounded-full mt-1">
+                                    <div class="h-1.5 bg-green-500 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">$149.99</div>
+                                <div class="text-xs text-green-500">En oferta</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Activo
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                                <button class="text-blue-500 hover:text-blue-700 mr-3">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-gray-500 hover:text-gray-700 mr-3">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Producto 4 -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-10 w-10 flex-shrink-0 mr-3">
+                                        <img class="h-10 w-10 rounded-md object-cover" src="/api/placeholder/64/64"
+                                            alt="Producto 4">
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Smartwatch FitPro</div>
+                                        <div class="text-sm text-gray-500">SKU: SW-FP20-SLV</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Electrónica</div>
+                                <div class="text-sm text-gray-500">Relojes</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">0 unidades</div>
+                                <div class="h-1.5 bg-gray-200 rounded-full mt-1">
+                                    <div class="h-1.5 bg-gray-300 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">$249.99</div>
+                                <div class="text-xs text-gray-500">Precio normal</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    Sin Stock
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                                <button class="text-blue-500 hover:text-blue-700 mr-3">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-gray-500 hover:text-gray-700 mr-3">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Producto 5 -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-10 w-10 flex-shrink-0 mr-3">
+                                        <img class="h-10 w-10 rounded-md object-cover" src="/api/placeholder/64/64"
+                                            alt="Producto 5">
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Tablet UltraTab 10</div>
+                                        <div class="text-sm text-gray-500">SKU: TB-UT10-64GB</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">Electrónica</div>
+                                <div class="text-sm text-gray-500">Tablets</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">50 unidades</div>
+                                <div class="h-1.5 bg-gray-200 rounded-full mt-1">
+                                    <div class="h-1.5 bg-blue-500 rounded-full" style="width: 50%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">$399.99</div>
+                                <div class="text-xs text-gray-500">Precio normal</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Activo
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                                <button class="text-blue-500 hover:text-blue-700 mr-3">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-gray-500 hover:text-gray-700 mr-3">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginación -->
+            <div class="px-6 py-4 border-t flex flex-col sm:flex-row justify-between items-center">
+                <div class="text-sm text-gray-500 mb-4 sm:mb-0">
+                    Mostrando 1-5 de 25 productos
+                </div>
+                <div class="flex items-center">
+                    <button class="px-3 py-1 border rounded-l-lg text-gray-500 hover:bg-gray-100 disabled:opacity-50"
+                        disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="px-3 py-1 border-t border-b bg-blue-50 text-blue-600 font-medium">1</button>
+                    <button class="px-3 py-1 border-t border-b text-gray-500 hover:bg-gray-100">2</button>
+                    <button class="px-3 py-1 border-t border-b text-gray-500 hover:bg-gray-100">3</button>
+                    <button class="px-3 py-1 border-t border-b text-gray-500 hover:bg-gray-100">4</button>
+                    <button class="px-3 py-1 border-t border-b text-gray-500 hover:bg-gray-100">5</button>
+                    <button class="px-3 py-1 border rounded-r-lg text-gray-500 hover:bg-gray-100">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Añade este código al final del body pero antes del script existente -->
+
+    <!-- Overlay de fondo oscuro -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity"></div>
+
+    <!-- Modal lateral / Side panel -->
+    <div id="side-panel"
+        class="fixed top-0 right-0 h-full w-full md:w-[40rem] bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
+        <!-- Cabecera del modal -->
+        <div class="px-6 py-4 border-b sticky top-0 bg-white z-10 flex justify-between items-center">
+            <h3 class="text-lg font-medium">Nuevo Producto</h3>
+            <button id="close-panel" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Contenido del formulario -->
+        <div class="p-6">
+            <form id="new-product-form">
+                <!-- Información básica -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Información Básica</h4>
+
+                    <!-- Nombre del producto -->
+                    <div class="mb-4">
+                        <label for="product-name" class="block text-sm font-medium text-gray-700 mb-1">Nombre del
+                            producto *</label>
+                        <input type="text" id="product-name" name="product-name"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            required>
+                    </div>
+
+                    <!-- SKU -->
+                    <div class="mb-4">
+                        <label for="product-sku" class="block text-sm font-medium text-gray-700 mb-1">SKU *</label>
+                        <input type="text" id="product-sku" name="product-sku"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            required>
+                    </div>
+
+                    <!-- Categoría -->
+                    <div class="mb-4">
+                        <label for="product-category" class="block text-sm font-medium text-gray-700 mb-1">Categoría
+                            *</label>
+                        <select id="product-category" name="product-category"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            required>
+                            <option value="">Seleccionar categoría</option>
+                            <option value="electronics">Electrónica</option>
+                            <option value="audio">Audio</option>
+                            <option value="computers">Computadoras</option>
+                            <option value="accessories">Accesorios</option>
+                            <option value="wearables">Wearables</option>
+                        </select>
+                    </div>
+
+                    <!-- Subcategoría -->
+                    <div class="mb-4">
+                        <label for="product-subcategory"
+                            class="block text-sm font-medium text-gray-700 mb-1">Subcategoría</label>
+                        <select id="product-subcategory" name="product-subcategory"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Seleccionar subcategoría</option>
+                            <option value="phones">Teléfonos</option>
+                            <option value="tablets">Tablets</option>
+                            <option value="laptops">Laptops</option>
+                            <option value="headphones">Audífonos</option>
+                            <option value="watches">Relojes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Precios e inventario -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Precios e Inventario
+                    </h4>
+
+                    <!-- Precio -->
+                    <div class="mb-4">
+                        <label for="product-price" class="block text-sm font-medium text-gray-700 mb-1">Precio ($)
+                            *</label>
+                        <input type="number" id="product-price" name="product-price" min="0" step="0.01"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            required>
+                    </div>
+
+                    <!-- Precio con descuento -->
+                    <div class="mb-4">
+                        <label for="product-sale-price" class="block text-sm font-medium text-gray-700 mb-1">Precio con
+                            descuento ($)</label>
+                        <input type="number" id="product-sale-price" name="product-sale-price" min="0" step="0.01"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <!-- Inventario -->
+                    <div class="mb-4">
+                        <label for="product-inventory" class="block text-sm font-medium text-gray-700 mb-1">Inventario
+                            *</label>
+                        <input type="number" id="product-inventory" name="product-inventory" min="0"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            required>
+                    </div>
+                </div>
+
+                <!-- Imagen del producto -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Imagen</h4>
+
+                    <div class="mb-4">
+                        <label for="product-image" class="block text-sm font-medium text-gray-700 mb-1">Imagen del
+                            producto</label>
+                        <div
+                            class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                            <div class="space-y-1 text-center">
+                                <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-3"></i>
+                                <div class="flex text-sm text-gray-600">
+                                    <label for="product-image"
+                                        class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                        <span>Subir un archivo</span>
+                                        <input id="product-image" name="product-image" type="file" class="sr-only"
+                                            accept="image/*">
+                                    </label>
+                                    <p class="pl-1">o arrastrar y soltar</p>
+                                </div>
+                                <p class="text-xs text-gray-500">PNG, JPG, GIF hasta 2MB</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Estado</h4>
+
+                    <div class="flex items-center">
+                        <div class="form-check form-switch">
+                            <input
+                                class="mr-2 h-4 w-8 appearance-none rounded-full bg-gray-300 checked:bg-blue-500 focus:outline-none cursor-pointer shadow-sm"
+                                type="checkbox" role="switch" id="product-status" checked>
+                        </div>
+                        <label class="form-check-label inline-block text-gray-700" for="product-status">Producto
+                            activo</label>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Los productos inactivos no aparecerán en la tienda</p>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="flex justify-end space-x-3 pt-4 border-t">
+                    <button type="button" id="cancel-button"
+                        class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                        class="px-4 py-2 bg-blue-500 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Guardar Producto
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Actualiza el script existente con el código para el modal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+         
+
+            // NUEVO CÓDIGO PARA EL MODAL LATERAL
+
+            // Elementos del modal
+            const newProductButton = document.querySelector('button:has(.fa-plus)');
+            const sidePanel = document.getElementById('side-panel');
+            const modalOverlay = document.getElementById('modal-overlay');
+            const closePanel = document.getElementById('close-panel');
+            const cancelButton = document.getElementById('cancel-button');
+            const newProductForm = document.getElementById('new-product-form');
+
+            // Función para abrir el panel lateral
+            function openSidePanel() {
+                sidePanel.classList.remove('translate-x-full');
+                modalOverlay.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden'); // Prevenir scroll
+            }
+
+            // Función para cerrar el panel lateral
+            function closeSidePanel() {
+                sidePanel.classList.add('translate-x-full');
+                modalOverlay.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden'); // Restaurar scroll
+            }
+
+            // Event listeners
+            newProductButton.addEventListener('click', openSidePanel);
+            closePanel.addEventListener('click', closeSidePanel);
+            cancelButton.addEventListener('click', closeSidePanel);
+            modalOverlay.addEventListener('click', closeSidePanel);
+
+            // Evitar que los clics dentro del panel cierren el modal
+            sidePanel.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            // Manejar el envío del formulario
+            newProductForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Aquí puedes agregar la lógica para guardar el producto
+                console.log('Producto guardado!');
+
+                // Para propósitos de demostración, simplemente cerramos el panel
+                // En un caso real, podrías enviar los datos a un servidor y luego cerrar
+                setTimeout(() => {
+                    closeSidePanel();
+                    // También podrías actualizar la tabla con el nuevo producto
+                }, 500);
+            });
+
+            // Código para hacer que las filas sean clickeables
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function (e) {
+                    // Ignora el clic si fue en los botones de acción
+                    if (e.target.closest('button') || e.target.closest('i')) {
+                        return;
+                    }
+
+                    // Aquí podrías redirigir a una página de detalles o abrir un modal
+                    const productName = this.querySelector('td:first-child .text-sm.font-medium').innerText;
+                    console.log(`Producto seleccionado: ${productName}`);
+
+                    // Ejemplo: Mostrar un efecto visual al hacer clic
+                    this.classList.add('bg-blue-50');
+                    setTimeout(() => {
+                        this.classList.remove('bg-blue-50');
+                    }, 300);
+                });
+            });
+
+            // Mejorar el switch toggle para el estado del producto
+            const statusToggle = document.getElementById('product-status');
+            statusToggle.addEventListener('change', function () {
+                // Aquí podrías agregar lógica adicional cuando cambia el estado
+                console.log('Estado cambiado:', this.checked ? 'Activo' : 'Inactivo');
+            });
+
+            // Código para la imagen del producto (vista previa)
+            const imageInput = document.getElementById('product-image');
+            imageInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Aquí podrías mostrar una vista previa de la imagen
+                    console.log('Archivo seleccionado:', file.name);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Aquí puedes agregar la funcionalidad para la tabla
+            // Por ejemplo, ordenación de columnas, filtrado, etc.
+
+            // Ejemplo: hacer que las filas sean clickeables
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function (e) {
+                    // Ignora el clic si fue en los botones de acción
+                    if (e.target.closest('button') || e.target.closest('i')) {
+                        return;
+                    }
+
+                    // Aquí podrías redirigir a una página de detalles o abrir un modal
+                    const productName = this.querySelector('td:first-child .text-sm.font-medium').innerText;
+                    console.log(`Producto seleccionado: ${productName}`);
+
+                    // Ejemplo: Mostrar un efecto visual al hacer clic
+                    this.classList.add('bg-blue-50');
+                    setTimeout(() => {
+                        this.classList.remove('bg-blue-50');
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
